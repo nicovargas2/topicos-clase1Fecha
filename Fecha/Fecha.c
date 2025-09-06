@@ -10,7 +10,7 @@ bool esBisiesto(int a);
 // inician siempre con el nombre del TDA que se relaciona, en este caso Fecha
 // las primitivas son una interfaz para usar el tipo de dato
 
-void fechaSet(Fecha* f, int dia, int mes, int anio)
+void fechaSet(Fecha *f, int dia, int mes, int anio)
 {
     // una opcion es usar la estructura directa, desreferenciar
 
@@ -20,28 +20,28 @@ void fechaSet(Fecha* f, int dia, int mes, int anio)
     f->anio = anio;
 }
 
-void fechaGet(const Fecha* f, int* d, int* m, int* a)
+void fechaGet(const Fecha *f, int *d, int *m, int *a)
 {
     *d = f->dia;
     *m = f->mes;
     *a = f->anio;
 }
 
-Fecha fechaSumarDias(const Fecha* f,int dias)
+Fecha fechaSumarDias(const Fecha *f, int dias)
 {
-    //a fSuma le cargue lo que tenia la fecha de input que NO debo modificar. Solo la copio.
+    // a fSuma le cargue lo que tenia la fecha de input que NO debo modificar. Solo la copio.
     Fecha fSuma = *f;
 
     fSuma.dia += dias;
     int cdm;
 
-    while (fSuma.dia > (cdm = cantDiasMes( fSuma.mes, fSuma.anio)))
+    while (fSuma.dia > (cdm = cantDiasMes(fSuma.mes, fSuma.anio)))
     {
         fSuma.dia -= cdm;
         fSuma.mes++;
         if (fSuma.mes > 12)
         {
-            fSuma.mes=1;
+            fSuma.mes = 1;
             fSuma.anio++;
         }
     }
@@ -51,7 +51,7 @@ Fecha fechaSumarDias(const Fecha* f,int dias)
 // no primitivas: no pueden acceder al campo de la estructura, sino que dependen de las primitivas
 // para setear o trabajar con los campos de la estructura
 
-void ingresarFecha(Fecha* f)
+void ingresarFecha(Fecha *f)
 {
     int d;
     int m;
@@ -69,13 +69,13 @@ void ingresarFecha(Fecha* f)
     fechaSet(f, d, m, a);
 }
 
-void mostrarFecha(const Fecha* f)
+void mostrarFecha(const Fecha *f)
 {
     int d, m, a;
 
     fechaGet(f, &d, &m, &a);
 
-    //asi le digo que use este formato, de largo 2 o 4, y que complete con 0
+    // asi le digo que use este formato, de largo 2 o 4, y que complete con 0
     printf("%02d/%02d/%04d", d, m, a);
 }
 
@@ -115,4 +115,50 @@ int cantDiasMes(int m, int a)
 bool esBisiesto(int a)
 {
     return a % 4 == 0 && (a % 100 != 0 || a % 400 == 0);
+}
+
+int fechaDiferencia(const Fecha *f1, const Fecha *f2)
+{
+    Fecha fechaMayor, fechaMenor;
+
+    if (f1->anio > f2->anio ||
+        (f1->anio == f2->anio && f1->mes > f2->mes) ||
+        (f1->anio == f2->anio && f1->mes == f2->mes && f1->dia > f2->dia))
+    {
+        fechaMayor = *f1;
+        fechaMenor = *f2;
+    }
+    else
+    {
+        fechaMayor = *f2;
+        fechaMenor = *f1;
+    }
+
+    int dias = 0;
+
+    while (fechaMenor.anio < fechaMayor.anio ||
+           fechaMenor.mes < fechaMayor.mes ||
+           fechaMenor.dia < fechaMayor.dia)
+    {
+        fechaMenor = fechaSumarDias(&fechaMenor, 1);
+        dias++;
+    }
+    return dias;
+}
+
+int fechaDiaDelAnio(const Fecha *f)
+{
+    int dias = f->dia;
+    int cdm = 0;
+    for (int m = 0; m < f->mes; m++)
+    {
+        // printf("indice for: %d \n",m);
+        if (m != 0)
+        {
+            cdm = cantDiasMes(m, f->anio);
+            printf("Mes: %d - cantidad de dias: %d \n", m, cdm);
+        }
+        dias += cdm;
+    }
+    return dias;
 }
