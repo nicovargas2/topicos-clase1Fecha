@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1757127365 source:c:\users\user\onedrive - universidad nacional de la matanza\escritorio\unlam\topicos\clase1\testfecha\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	"../Fecha/Fecha.h"
+
+1757043410 c:\users\user\onedrive - universidad nacional de la matanza\escritorio\unlam\topicos\clase1\fecha\fecha.h
+	<stdbool.h>
+

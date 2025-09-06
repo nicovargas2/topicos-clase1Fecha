@@ -23,19 +23,15 @@ void fechaGet(const Fecha* f, int* d, int* m, int* a);
 
 Fecha fechaSumarDias(const Fecha* f,int dias);
 int fechaDiferencia(const Fecha* f1, const Fecha* f2);
+
 // recibe una fecha y devuelve que dia es (0 Lunes, 1 Martes, 2 Mier...) 
 int fechaDiaDeLaSemana(const Fecha* f);
+
 // cuenta que dia del anio es, olvidandome de los meses
 int fechaDiaDelAnio(const Fecha* f);
-
-
 
 // no primitivas
 void ingresarFecha(Fecha* f);
 void mostrarFecha(const Fecha* f);
-
-
-
-
 
 #endif // FECHA_H
